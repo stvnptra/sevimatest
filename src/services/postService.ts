@@ -8,6 +8,7 @@ import {
   deleteDoc,
   query,
   orderBy,
+  where,
   arrayUnion,
   arrayRemove,
   Timestamp
@@ -86,11 +87,13 @@ export const getPost = async (postId: string): Promise<Post | null> => {
 
 // Get posts by user
 export const getPostsByUser = async (userId: string): Promise<Post[]> => {
-  const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+  const q = query(
+    collection(db, 'posts'),
+    where('userId', '==', userId),
+    orderBy('createdAt', 'desc')
+  );
   const snapshot = await getDocs(q);
-  return snapshot.docs
-    .map(doc => ({ id: doc.id, ...doc.data() }) as Post)
-    .filter(post => post.userId === userId);
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Post);
 };
 
 // Update a post
@@ -138,7 +141,7 @@ export const addComment = async (
 ): Promise<void> => {
   const docRef = doc(db, 'posts', postId);
   const comment: Comment = {
-    id: Date.now().toString(),
+    id: crypto.randomUUID(),
     userId,
     userName,
     text,

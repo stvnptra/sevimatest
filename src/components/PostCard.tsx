@@ -93,7 +93,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostDeleted, onPostUpdated 
           </IonAvatar>
           <IonLabel>
             <h2>{post.userName}</h2>
-            <p>{new Date(post.createdAt.toDate()).toLocaleDateString()}</p>
+            <p>{post.createdAt?.toDate ? new Date(post.createdAt.toDate()).toLocaleDateString() : ''}</p>
           </IonLabel>
           {user && user.uid === post.userId && (
             <IonButton fill="clear" color="danger" onClick={handleDeletePost}>
