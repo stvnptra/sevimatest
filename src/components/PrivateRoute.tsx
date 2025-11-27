@@ -3,8 +3,10 @@ import { Route, Redirect, RouteProps, RouteComponentProps } from 'react-router-d
 import { IonSpinner } from '@ionic/react';
 import { useAuth } from '../context';
 
+// Using generic type to support components with different route params
 interface PrivateRouteProps extends RouteProps {
-  component: React.ComponentType<RouteComponentProps>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: React.ComponentType<RouteComponentProps<any>>;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => {

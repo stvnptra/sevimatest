@@ -30,7 +30,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import { AuthProvider, useAuth } from './context';
-import { Login, Register, Feed, CreatePost, Profile } from './pages';
+import { Login, Register, Feed, CreatePost, Profile, PostDetail } from './pages';
 import { PrivateRoute } from './components';
 
 setupIonicReact();
@@ -59,6 +59,7 @@ const AppTabs: React.FC = () => {
         <Route exact path="/feed" component={Feed} />
         <PrivateRoute exact path="/create-post" component={CreatePost} />
         <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/post/:postId" component={PostDetail} />
         <Route exact path="/">
           <Redirect to="/feed" />
         </Route>
